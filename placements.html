@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placements</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0d0d2b;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: #e23744;
+            margin-top: 0; /* Move the title to the very top */
+            padding-top: 20px;
+            margin-bottom: 50px;
+            font-size: 5rem;
+        }
+
+        .language-grid {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 80px;
+        }
+
+        .language-link {
+            background: #e23744;
+            color: #ffffff;
+            padding: 40px 80px;
+            text-align: center;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .language-link:hover {
+            background: #c32d3b;
+            transform: scale(1.1);
+        }
+
+        .language-link i {
+            font-size: 24px; /* Adjust the icon size */
+        }
+
+        /* Icon Styles */
+        .language-link i {
+            color: #ffffff;
+        }
+    </style>
+    <!-- Adding FontAwesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Placement Resources</h1>
+    <div class="language-grid">
+        <a href="c.html" class="language-link"><i class="fas fa-code"></i> C</a>
+        <a href="cpp.html" class="language-link"><i class="fas fa-code"></i> C++</a>
+        <a href="java.html" class="language-link"><i class="fas fa-code"></i> Java</a>
+        <a href="python.html" class="language-link"><i class="fas fa-code"></i> Python</a>
+    </div>
+</body>
+</html>

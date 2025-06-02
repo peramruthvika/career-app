@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHEMIST</title>
+    
+    <!-- Google Fonts for custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+            background: #0d0d2b;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Stars Background */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            background-size: 100px 100px;
+            z-index: 0;
+        }
+
+        /* Main Page Styling */
+        .page {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Title Styling */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            color: #e23744;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styling */
+        #getStartedButton {
+            background: #e23744;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            color: #ffffff;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        #getStartedButton:hover {
+            background: #c32d3b;
+            transform: scale(1.05);
+        }
+
+        /* Auth Links Styling */
+        .authLinks a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+        }
+
+        .authLinks a:hover {
+            color: #e23744;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1a1a3b;
+            border-radius: 8px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            text-align: center;
+        }
+
+        .modal h2 {
+            color: #e23744;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .modal label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #ffffff;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .modal button {
+            background: #e23744;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .modal button:hover {
+            background: #c32d3b;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9;
+        }
+    </style>
+    
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            const overlay = document.getElementById("overlay");
+
+            // Show/Hide modal function
+            function toggleModal(modalId) {
+                document.getElementById(modalId).style.display = "block";
+                overlay.style.display = "block";
+            }
+
+            function closeModal() {
+                document.querySelectorAll(".modal").forEach(modal => {
+                    modal.style.display = "none";
+                });
+                overlay.style.display = "none";
+            }
+
+            // Event listeners for Sign In and Sign Up buttons
+            document.getElementById("signInButton").addEventListener("click", () => toggleModal("signInModal"));
+            document.getElementById("signUpButton").addEventListener("click", () => toggleModal("signUpModal"));
+            document.querySelectorAll(".close-modal").forEach(button => button.addEventListener("click", closeModal));
+            overlay.addEventListener("click", closeModal);
+        });
+    </script>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars"></div>
+
+    <!-- Main Content -->
+    <div id="mainPage" class="page">
+        <h1>ALCHEMIST</h1>
+        <button id="getStartedButton">Get Started</button>
+        <div class="authLinks">
+            <span id="signInButton">Sign In</span> |
+            <span id="signUpButton">Sign Up</span>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <h2>Sign In</h2>
+        <label for="signin-email">Email Address</label>
+        <input type="email" id="signin-email" placeholder="Enter your email" required>
+        <label for="signin-password">Password</label>
+        <input type="password" id="signin-password" placeholder="Enter your password" required>
+        <button class="close-modal">Close</button>
+        <button type="submit">Sign In</button>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="modal">
+        <h2>Sign Up</h2>
+        <label for="signup-username">Username</label>
+        <input type="text" id="signup-username" placeholder="Enter your username" required>
+        <label for="signup-email">Email Address</label>
+        <input type="email" id="signup-email" placeholder="Enter your email" required>
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" placeholder="Enter your password" required>
+        <button class="close-modal">Close</button>
+        <button type="submit">Sign Up</button>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+</body>
+</html>

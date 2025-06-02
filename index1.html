@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCHEMIST</title>
+  
+    <!-- Google Fonts for custom fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 10px 20px;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+            background: #0d0d2b;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Stars Background */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+            background-size: 100px 100px;
+            z-index: 0;
+        }
+
+        /* Main Page Styling */
+        .page {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Title Styling */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 48px;
+            color: #e23744;
+            margin-bottom: 20px;
+            font-size: 6rem;
+        }
+
+        /* Button Styling */
+        #getStartedButton {
+            background: #e23744;
+            border: none;
+            padding: 20px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        #getStartedButton a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #getStartedButton:hover {
+            background: #c32d3b;
+            transform: scale(1.05);
+        }
+
+        /* Auth Links Styling */
+        .authLinks a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+        }
+
+        .authLinks a:hover {
+            color: #e23744;
+        }
+
+        /* Modal Styling */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 20px;
+            background: #ffffff;
+            color: #333333;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            display: none;
+            z-index: 2;
+        }
+
+        .modal h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #e23744;
+        }
+
+        .modal label {
+            font-size: 14px;
+            color: #555555;
+            display: block;
+            margin: 5px 0;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+
+        .modal button {
+            background: #e23744;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background: #c32d3b;
+        }
+
+        /* Close Button Styling */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        /* Matter Canvas Styling */
+        #matterCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+            
+            #getStartedButton {
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+        }
+    </style>
+    
+    <!-- Matter.js script for physics engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js"></script>
+    
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            const { Engine, Render, Runner, Bodies, World } = Matter;
+
+            // Create engine
+            const engine = Engine.create();
+            const world = engine.world;
+
+            // Create renderer
+            const render = Render.create({
+                element: document.getElementById("matterCanvas"),
+                engine: engine,
+                options: {
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                    wireframes: false,
+                    background: 'transparent'
+                }
+            });
+
+            Render.run(render);
+            Runner.run(Runner.create(), engine);
+
+            // Function to create random circles
+            function createCircle(x, y) {
+                return Bodies.circle(x, y, Math.random() * 20 + 5, {
+                    restitution: 0.7,
+                    render: {
+                        fillStyle: "#e23744"
+                    }
+                });
+            }
+
+            // Add circles to the world
+            for (let i = 0; i < 20; i++) {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                World.add(world, createCircle(x, y));
+            }
+
+            // Add borders to contain the shapes
+            const borderOptions = { isStatic: true, render: { visible: false } };
+            World.add(world, [
+                Bodies.rectangle(window.innerWidth / 2, 0, window.innerWidth, 10, borderOptions), // Top border
+                Bodies.rectangle(window.innerWidth / 2, window.innerHeight, window.innerWidth, 10, borderOptions), // Bottom border
+                Bodies.rectangle(0, window.innerHeight / 2, 10, window.innerHeight, borderOptions), // Left border
+                Bodies.rectangle(window.innerWidth, window.innerHeight / 2, 10, window.innerHeight, borderOptions) // Right border
+            ]);
+
+            // Resize canvas on window resize
+            window.addEventListener("resize", () => {
+                render.options.width = window.innerWidth;
+                render.options.height = window.innerHeight;
+                Render.lookAt(render, {
+                    min: { x: 0, y: 0 },
+                    max: { x: window.innerWidth, y: window.innerHeight }
+                });
+            });
+
+            // Toggle Modals
+            document.getElementById('signInLink').onclick = () => document.getElementById('signInModal').style.display = 'block';
+            document.getElementById('signUpLink').onclick = () => document.getElementById('signUpModal').style.display = 'block';
+            document.querySelectorAll('.close-btn').forEach(btn => btn.onclick = () => btn.parentElement.style.display = 'none');
+
+            // Redirect after Sign In or Sign Up
+            document.getElementById('signInButton').onclick = () => {
+                // You can add your sign-in logic here
+                window.location.href = 'career-options.html';  // Redirect to career options page after sign-in
+            };
+
+            document.getElementById('signUpButton').onclick = () => {
+                // You can add your sign-up logic here
+                window.location.href = 'career-options.html';  // Redirect to career options page after sign-up
+            };
+        });
+    </script>
+</head>
+<body>
+    <!-- Stars Background -->
+    <div class="stars"></div>
+
+    <!-- Main Content -->
+    <div id="mainPage" class="page">
+        <h1>ALCHEMIST</h1>
+        <button id="getStartedButton">
+            <a href="career-options.html">Get Started</a>
+        </button>
+        <div class="authLinks">
+            <a id="signInLink" href="#">Sign In</a> |
+            <a id="signUpLink" href="#">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <h2>Sign In</h2>
+        <label for="signInEmail">Email Address</label>
+        <input type="email" id="signInEmail" required>
+        <label for="signInPassword">Password</label>
+        <input type="password" id="signInPassword" required>
+        <button id="signInButton">Sign In</button>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <h2>Sign Up</h2>
+        <label for="signUpUsername">Username</label>
+        <input type="text" id="signUpUsername" required>
+        <label for="signUpEmail">Email Address</label>
+        <input type="email" id="signUpEmail" required>
+        <label for="signUpPassword">Password</label>
+        <input type="password" id="signUpPassword" required>
+        <button id="signUpButton">Sign Up</button>
+    </div>
+
+    <!-- Matter.js Canvas -->
+    <div id="matterCanvas"></div>
+</body>
+</html>

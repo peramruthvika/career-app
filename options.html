@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Path | ALCHEMIST</title>
+    <style>
+        /* Reset default styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff6b81, #e23744);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        /* Main container styling */
+        .page {
+            text-align: center;
+            background-color: #fff;
+            color: #333;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Title styling */
+        h2 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #e23744;
+        }
+
+        /* Button container styling */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        /* Button styling */
+        .option-btn {
+            background-color: #e23744;
+            color: #fff;
+            font-size: 18px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 160px;
+        }
+
+        .option-btn:hover {
+            background-color: #d0293b;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Back button styling */
+        .back-btn {
+            background-color: #666;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            background-color: #333;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 22px;
+            }
+
+            .option-btn {
+                font-size: 16px;
+                padding: 10px 25px;
+                max-width: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Placement or Higher Studies Selection -->
+    <div id="choicePage" class="page">
+        <h2>Choose Your Path</h2>
+        <div class="button-container">
+            <button id="placementBtn" class="option-btn">Placement</button>
+            <button id="higherStudiesBtn" class="option-btn">Higher Studies</button>
+        </div>
+        <button id="backChoiceButton" class="back-btn">Back</button>
+    </div>
+
+    <script>
+        // JavaScript for button interactions
+        document.addEventListener("DOMContentLoaded", () => {
+            const placementBtn = document.getElementById("placementBtn");
+            const higherStudiesBtn = document.getElementById("higherStudiesBtn");
+            const backChoiceButton = document.getElementById("backChoiceButton");
+
+            // Event listener for Placement button
+            placementBtn.addEventListener("click", () => {
+                alert("You chose Placement!");
+            });
+
+            // Event listener for Higher Studies button
+            higherStudiesBtn.addEventListener("click", () => {
+                alert("You chose Higher Studies!");
+            });
+
+            // Event listener for Back button
+            backChoiceButton.addEventListener("click", () => {
+                alert("Returning to the previous page.");
+            });
+        });
+    </script>
+</body>
+</html>
